@@ -5,6 +5,16 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Always reset scroll to the first section upon page load / refresh
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
+  window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+  });
+
   // Elements
   const video = document.getElementById('weddingVideo');
   const videoSection = document.getElementById('fullscreenVideoSection');
@@ -230,9 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -------------------------------------------------------------------------
-  // 3. COUNTDOWN TIMER (27th December 2026, 04:30 PM IST)
+  // 3. COUNTDOWN TIMER (27th December 2026, 05:00 PM IST)
   // -------------------------------------------------------------------------
-  const weddingDate = new Date('2026-12-27T16:30:00+05:30').getTime();
+  const weddingDate = new Date('2026-12-27T17:00:00+05:30').getTime();
 
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
@@ -288,10 +298,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const gCalUrl = new URL('https://calendar.google.com/calendar/render');
     gCalUrl.searchParams.set('action', 'TEMPLATE');
     gCalUrl.searchParams.set('text', 'Wedding: Mohammed Anas & Fathimath Shafika');
-    gCalUrl.searchParams.set('dates', '20261227T110000Z/20261227T170000Z');
+    gCalUrl.searchParams.set('dates', '20261227T113000Z/20261227T173000Z');
     gCalUrl.searchParams.set(
       'details',
-      'Save the Date! Sacred Nikah ceremony at 04:30 PM followed by Wedding Reception.\n\nVenue: The Flora By Sunflower, Madhur, Kasaragod, Kerala - 671124\nGoogle Maps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic'
+      'Save the Date! Sacred Nikah ceremony at 05:00 PM followed by Wedding Reception.\n\nVenue: The Flora By Sunflower, Madhur, Kasaragod, Kerala - 671124\nGoogle Maps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic'
     );
     gCalUrl.searchParams.set('location', 'The Flora By Sunflower, Madhur, Kasaragod, Kerala 671124');
     googleCalLink.href = gCalUrl.toString();
@@ -309,10 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'BEGIN:VEVENT',
         'UID:wedding-anas-shafika-20261227@wedding',
         'DTSTAMP:20261116T000000Z',
-        'DTSTART:20261227T110000Z',
-        'DTEND:20261227T170000Z',
+        'DTSTART:20261227T113000Z',
+        'DTEND:20261227T173000Z',
         'SUMMARY:Wedding of Mohammed Anas & Fathimath Shafika',
-        'DESCRIPTION:Sacred Nikah Ceremony at 04:30 PM followed by Wedding Reception.\\nVenue: The Flora By Sunflower\\, Madhur\\, Kasaragod\\, Kerala.\\nMaps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic',
+        'DESCRIPTION:Sacred Nikah Ceremony at 05:00 PM followed by Wedding Reception.\\nVenue: The Flora By Sunflower\\, Madhur\\, Kasaragod\\, Kerala.\\nMaps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic',
         'LOCATION:The Flora By Sunflower\\, Madhur\\, Kasaragod\\, Kerala - 671124',
         'STATUS:CONFIRMED',
         'SEQUENCE:0',

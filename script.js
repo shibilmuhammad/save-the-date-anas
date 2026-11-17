@@ -88,6 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isUnveiled || !entranceOverlay) return;
     isUnveiled = true;
 
+    // Immediately guarantee scroll is locked at the very top of the page
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     // Trigger golden stardust burst at interaction point
     let clickX = window.innerWidth / 2;
     let clickY = window.innerHeight / 2;
@@ -117,7 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       entranceOverlay.classList.add('unveiled');
       document.body.style.overflow = 'auto';
-    }, 1350);
+
+      // Always bring viewport cleanly to the first section (top hero)
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      const heroSec = document.querySelector('.cinematic-hero-section');
+      if (heroSec) {
+        heroSec.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }
+    }, 1150);
   }
 
   if (entranceSealBtn) {

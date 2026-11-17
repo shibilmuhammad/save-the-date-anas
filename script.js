@@ -416,13 +416,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (googleCalLink) {
     const gCalUrl = new URL('https://calendar.google.com/calendar/render');
     gCalUrl.searchParams.set('action', 'TEMPLATE');
-    gCalUrl.searchParams.set('text', 'Wedding: Mohammed Anas & Fathimath Shafika');
+    gCalUrl.searchParams.set('text', 'Wedding: Fathimath Shafika Abdul & Mohammed Anas');
     gCalUrl.searchParams.set('dates', '20261227T113000Z/20261227T173000Z');
     gCalUrl.searchParams.set(
       'details',
-      'Save the Date! Sacred Nikah ceremony at 05:00 PM followed by Wedding Reception.\n\nVenue: The Flora By Sunflower, Madhur, Kasaragod, Kerala - 671124\nGoogle Maps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic'
+      'Save the Date! Celebration of the wedding of our beloved daughter Fathimath Shafika Abdul with Mohammed Anas.\nSacred Nikah ceremony at 05:00 PM followed by Wedding Reception.\n\nVenue: The Flora By Sunflower, Madhur, Kasaragod, Kerala - 671124\nGoogle Maps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic'
     );
-    gCalUrl.searchParams.set('location', 'The Flora By Sunflower, Madhur, Kasaragod, Kerala 671124');
+    gCalUrl.searchParams.set('location', 'The Flora By Sunflower, Madhur, Kasaragod, Kerala - 671124');
     googleCalLink.href = gCalUrl.toString();
   }
 
@@ -432,16 +432,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const icsContent = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//Save The Date//Mohammed Anas & Fathimath Shafika//EN',
+        'PRODID:-//Save The Date//Fathimath Shafika Abdul & Mohammed Anas//EN',
         'CALSCALE:GREGORIAN',
         'METHOD:PUBLISH',
         'BEGIN:VEVENT',
-        'UID:wedding-anas-shafika-20261227@wedding',
+        'UID:wedding-shafika-anas-20261227@wedding',
         'DTSTAMP:20261116T000000Z',
         'DTSTART:20261227T113000Z',
         'DTEND:20261227T173000Z',
-        'SUMMARY:Wedding of Mohammed Anas & Fathimath Shafika',
-        'DESCRIPTION:Sacred Nikah Ceremony at 05:00 PM followed by Wedding Reception.\\nVenue: The Flora By Sunflower\\, Madhur\\, Kasaragod\\, Kerala.\\nMaps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic',
+        'SUMMARY:Wedding of Fathimath Shafika Abdul & Mohammed Anas',
+        'DESCRIPTION:Celebration of the wedding of our beloved daughter Fathimath Shafika Abdul with Mohammed Anas.\\nSacred Nikah Ceremony at 05:00 PM followed by Wedding Reception.\\nVenue: The Flora By Sunflower\\, Madhur\\, Kasaragod\\, Kerala.\\nMaps: https://maps.app.goo.gl/Qksm7bKJoUfYUYEu8?g_st=ic',
         'LOCATION:The Flora By Sunflower\\, Madhur\\, Kasaragod\\, Kerala - 671124',
         'STATUS:CONFIRMED',
         'SEQUENCE:0',
@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', 'Anas_and_Shafika_Wedding.ics');
+      link.setAttribute('download', 'Shafika_and_Anas_Wedding.ics');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -486,8 +486,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (shareBtn) {
     shareBtn.addEventListener('click', async () => {
       const shareData = {
-        title: 'Save the Date | Mohammed Anas & Fathimath Shafika',
-        text: 'Save the Date! Mohammed Anas & Fathimath Shafika are getting married on Sunday, 27th December 2026 at The Flora by Sunflower, Madhur, Kasaragod.',
+        title: 'Save the Date | Fathimath Shafika Abdul & Mohammed Anas',
+        text: 'Save the Date! Celebration of the wedding of our beloved daughter Fathimath Shafika Abdul with Mohammed Anas on Sunday, 27th December 2026 at The Flora by Sunflower, Kasaragod.',
         url: window.location.href
       };
 

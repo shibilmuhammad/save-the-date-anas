@@ -109,17 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Play royal chime
     playRoyalChime();
 
-    // Prime and pre-warm video playback pipeline on user interaction
+    // Keep video paused until user clicks Watch Invitation Film or scrolls into it
     if (video) {
-      video.muted = false;
-      const primePlay = video.play();
-      if (primePlay !== undefined) {
-        primePlay.catch(() => {
-          video.muted = true;
-          video.play().catch(() => {});
-        });
-      }
-      updateMuteButtonUI();
+      video.pause();
+      video.currentTime = 0;
     }
 
     // Trigger visual gate parting
@@ -320,25 +313,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // IntersectionObserver: Instant Pre-buffering & Smooth Autoplay when approaching video
+  // IntersectionObserver: Autoplay only when at least half (55%+) of the video section is in viewport
   if (video && videoSection && 'IntersectionObserver' in window) {
     const observerOptions = {
       root: null,
-      rootMargin: '160px 0px 160px 0px',
-      threshold: 0.08 // Trigger as soon as the video section approaches viewport
+      rootMargin: '0px',
+      threshold: [0.2, 0.55] // Requires at least half of the section in view
     };
 
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (entry.intersectionRatio >= 0.55) {
           const playPromise = video.play();
           if (playPromise !== undefined) {
             playPromise
               .then(() => {
                 updateMuteButtonUI();
               })
-              .catch((err) => {
-                // If strict unmuted policy blocks, seamlessly continue muted
+              .catch(() => {
+                // If strict unmuted policy blocks, smoothly play muted
                 video.muted = true;
                 updateMuteButtonUI();
                 video.play().catch(() => {});
@@ -353,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.addEventListener('touchstart', unmuteOnNext, { once: true });
               });
           }
-        } else {
+        } else if (entry.intersectionRatio < 0.2) {
           // Pause when scrolled out of view to save battery and network bandwidth
           if (!video.paused) {
             video.pause();

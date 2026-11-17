@@ -178,16 +178,15 @@
   <section class="fullscreen-video-section" id="fullscreenVideoSection">
     <div class="video-container">
       
-      <!-- Video Element: Edge-to-edge, zero borders, plays when scrolled into view -->
+      <!-- Video Element: Edge-to-edge, zero borders, plays when scrolled into view or button clicked -->
       <video 
         id="weddingVideo"
         class="fullscreen-video" 
         playsinline 
         webkit-playsinline 
         muted
-        autoplay
         loop 
-        preload="auto"
+        preload="metadata"
         poster="poster.jpg"
       >
         <source src="video.mp4" type="video/mp4" />

@@ -521,8 +521,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 50px 20px 40px;
+  padding: 44px 20px 32px;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Stage Backdrop Image with Soft Vignette */
@@ -549,11 +550,22 @@ body {
   z-index: 2;
   width: 100%;
   max-width: 580px;
+  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
   margin: 0 auto;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+}
+
+.hero-main-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;
 }
 
 /* Sacred Bismillah Calligraphy */
@@ -968,31 +980,33 @@ body {
   color: var(--gold-bright);
 }
 
-/* Action Buttons Group */
-/* Quick Action Bar (Symmetrical Dual Button Group) */
+/* Action Buttons Group (Symmetrical Dual Button Group) */
 .action-buttons-group {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 14px;
   width: 100%;
-  max-width: 480px;
+  max-width: 330px;
   margin: 0 auto;
 }
 
 .btn-action {
-  display: inline-flex;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 13px 20px;
+  gap: 12px;
+  padding: 14px 24px;
   border-radius: var(--radius-full);
-  background: rgba(14, 38, 29, 0.65);
+  background: rgba(14, 38, 29, 0.75);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1.5px solid var(--border-gold-bright);
   color: var(--gold-light);
   font-family: var(--font-sans);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 1.2px;
   text-decoration: none;
@@ -1000,12 +1014,21 @@ body {
   transition: all 0.35s ease;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(212, 175, 55, 0.15);
   text-align: center;
-  white-space: nowrap;
 }
 
 .btn-action i {
   color: var(--gold-pure);
-  font-size: 0.9rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-action span {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .btn-action:hover {
@@ -1020,18 +1043,15 @@ body {
   transform: translateY(0) scale(0.97);
 }
 
-@media (max-width: 400px) {
+@media (min-width: 560px) {
   .action-buttons-group {
-    gap: 10px;
+    flex-direction: row;
+    max-width: 460px;
+    gap: 16px;
   }
   .btn-action {
-    padding: 12px 10px;
-    font-size: 0.74rem;
-    gap: 6px;
-    letter-spacing: 0.8px;
-  }
-  .btn-action i {
-    font-size: 0.8rem;
+    flex: 1;
+    padding: 14px 18px;
   }
 }
 
@@ -1761,18 +1781,32 @@ body {
    -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
   .cinematic-hero-section {
-    padding: 44px 20px 38px;
+    padding: 34px 18px 24px;
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    box-sizing: border-box;
   }
   .hero-content-wrapper {
     width: 100%;
+    min-height: calc(100vh - 58px);
+    min-height: calc(100dvh - 58px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hero-main-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto 0;
   }
   .sacred-bismillah-wrap {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
   .bismillah-vector {
     max-width: 220px;
@@ -1787,7 +1821,7 @@ body {
   }
   .couture-badge {
     padding: 6px 18px;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
     gap: 8px;
   }
   .badge-text {
@@ -1798,7 +1832,7 @@ body {
     font-size: 0.6rem;
   }
   .couple-names-lockup {
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
   .groom-name, .bride-name {
     font-size: 2.15rem;
@@ -1806,7 +1840,7 @@ body {
     letter-spacing: 0.5px;
   }
   .couple-ampersand {
-    margin: 10px 0 8px;
+    margin: 8px 0 6px;
     gap: 14px;
   }
   .amp-symbol {
@@ -1817,24 +1851,21 @@ body {
     width: 32px;
   }
   .hero-event-summary {
-    margin-bottom: 28px;
+    margin-bottom: 16px;
   }
   .hero-date-highlight {
     font-size: 1.05rem;
     letter-spacing: 1.8px;
     line-height: 1.35;
-    margin-bottom: 8px;
-  }
-  .hero-venue-highlight {
-    font-size: 0.84rem;
-    letter-spacing: 1.2px;
-    line-height: 1.4;
+    margin-bottom: 0;
   }
   .watch-invitation-btn {
     padding: 13px 28px;
     font-size: 0.82rem;
     letter-spacing: 1.5px;
     gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 6px;
   }
   .btn-icon-play {
     width: 28px;
@@ -1968,48 +1999,63 @@ body {
 
 @media (max-height: 720px) and (max-width: 480px) {
   .cinematic-hero-section {
-    padding: 28px 16px 22px;
+    padding: 24px 16px 18px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .hero-content-wrapper {
+    min-height: calc(100vh - 42px);
+    min-height: calc(100dvh - 42px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hero-main-details {
+    margin: auto 0;
   }
   .sacred-bismillah-wrap {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
   .bismillah-vector {
-    max-width: 195px;
-    margin-bottom: 6px;
+    max-width: 190px;
+    margin-bottom: 4px;
   }
   .bismillah-sub {
-    font-size: 0.74rem;
+    font-size: 0.72rem;
   }
   .couture-badge {
-    margin-bottom: 18px;
-    padding: 5px 16px;
+    margin-bottom: 14px;
+    padding: 4px 14px;
   }
   .couple-names-lockup {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
   .groom-name, .bride-name {
-    font-size: 1.95rem;
-    line-height: 1.2;
+    font-size: 1.9rem;
+    line-height: 1.18;
   }
   .couple-ampersand {
-    margin: 6px 0;
+    margin: 4px 0;
   }
   .amp-symbol {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
     line-height: 1;
   }
   .hero-event-summary {
-    margin-bottom: 22px;
+    margin-bottom: 12px;
   }
   .hero-date-highlight {
-    font-size: 0.98rem;
-    margin-bottom: 5px;
-  }
-  .hero-venue-highlight {
-    font-size: 0.8rem;
+    font-size: 0.95rem;
+    margin-bottom: 0;
   }
   .watch-invitation-btn {
     padding: 11px 24px;
     font-size: 0.78rem;
+    margin-top: 14px;
+    margin-bottom: 4px;
   }
 }

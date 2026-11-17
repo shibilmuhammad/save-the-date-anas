@@ -341,6 +341,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const scrollGuideBtn = document.getElementById('scrollGuideBtn');
+  if (scrollGuideBtn && videoSection) {
+    scrollGuideBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      videoSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
   // -------------------------------------------------------------------------
   // 5. SHARING (Web Share API with Clipboard Fallback)
   // -------------------------------------------------------------------------

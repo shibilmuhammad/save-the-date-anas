@@ -471,13 +471,13 @@ body {
   color: var(--gold-pure);
 }
 
-/* Watch Invitation Button (High-End Magnetic Pill) */
+/* Watch Invitation Button (Floating Levitation & Magnetic Gold Glow) */
 .watch-invitation-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 30px;
+  padding: 15px 32px;
   border-radius: var(--radius-full);
   background: var(--gold-foil);
   color: #0b120e;
@@ -487,30 +487,88 @@ body {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.45), 0 0 25px rgba(250, 231, 165, 0.3);
-  transition: var(--transition);
   cursor: pointer;
+  overflow: hidden;
+  animation: btnFloating 2.8s infinite ease-in-out, btnAuraPulse 2.8s infinite ease-in-out;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Diagonal Light Shimmer Sweep */
+.watch-invitation-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  animation: btnShimmerSweep 3.5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes btnShimmerSweep {
+  0% { left: -100%; }
+  35%, 100% { left: 200%; }
+}
+
+@keyframes btnFloating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes btnAuraPulse {
+  0%, 100% {
+    box-shadow: 
+      0 8px 24px rgba(212, 175, 55, 0.4),
+      0 0 0 0 rgba(250, 231, 165, 0.6),
+      0 0 20px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 14px 38px rgba(212, 175, 55, 0.6),
+      0 0 0 10px rgba(250, 231, 165, 0),
+      0 0 35px rgba(250, 231, 165, 0.5);
+  }
 }
 
 .watch-invitation-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.65), 0 0 35px rgba(250, 231, 165, 0.45);
-  filter: brightness(1.05);
+  transform: translateY(-9px) scale(1.03);
+  filter: brightness(1.08);
+}
+
+.watch-invitation-btn:active {
+  transform: translateY(-2px) scale(0.97);
 }
 
 .btn-icon-wrap {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: rgba(11, 18, 14, 0.15);
+  background: rgba(11, 18, 14, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.72rem;
+  animation: playPulse 2s infinite ease-in-out;
+}
+
+@keyframes playPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
 }
 
 .btn-arrow {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   animation: btnArrowBounce 1.8s infinite ease-in-out;
 }
 

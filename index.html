@@ -41,41 +41,102 @@
 <body>
 
   <!-- =========================================================================
-       CREATIVE ROYAL UNVEIL ENTRANCE (Wax Seal & Parting Velvet Gates)
+       CINEMATIC ROYAL EDITORIAL COVER & UNVEIL (Haute Couture Frame, 3D Wax Seal & Editorial Typography)
        ========================================================================= -->
-  <div class="royal-entrance-overlay" id="entranceOverlay">
-    <div class="gate-door gate-left">
-      <div class="gate-texture"></div>
-      <div class="gate-trim-line"></div>
-    </div>
-    <div class="gate-door gate-right">
-      <div class="gate-texture"></div>
-      <div class="gate-trim-line"></div>
+  <section class="royal-editorial-cover" id="entranceOverlay" aria-label="Wedding Introduction">
+    <!-- Atmospheric Stage & Lighting Backdrop with Deep Vignette -->
+    <div class="cover-backdrop-img"></div>
+    <div class="cover-vignette-overlay"></div>
+    <div class="cover-radial-glow"></div>
+
+    <!-- Haute Couture Double Gold Filigree Border Frame -->
+    <div class="cover-frame-outer">
+      <div class="cover-frame-inner"></div>
+      <div class="frame-corner top-left"></div>
+      <div class="frame-corner top-right"></div>
+      <div class="frame-corner bottom-left"></div>
+      <div class="frame-corner bottom-right"></div>
     </div>
 
-    <!-- Centered Golden Wax Seal -->
-    <div class="entrance-seal-container" id="entranceSealBtn" role="button" aria-label="Open Royal Invitation">
-      <div class="seal-pulse-aura"></div>
-      <div class="seal-pulse-aura outer"></div>
-      
-      <div class="royal-wax-seal">
-        <div class="seal-flourish top">✦</div>
-        <div class="seal-monogram">
-          <span class="m-char">A</span>
-          <span class="m-diamond">❖</span>
-          <span class="m-char">S</span>
+    <!-- Editorial Presentation Card Content -->
+    <div class="cover-content-container">
+
+      <!-- 3D Molten Gold Wax Seal Monogram -->
+      <div class="cover-seal-wrap" id="entranceSealBtn" role="button" aria-label="Unveil Wedding Invitation">
+        <div class="seal-pulse-aura ring-1"></div>
+        <div class="seal-pulse-aura ring-2"></div>
+        <div class="seal-shockwave-ring" id="sealShockwave"></div>
+        
+        <div class="royal-wax-seal-outer">
+          <div class="royal-wax-seal">
+            <div class="seal-shimmer-sweep"></div>
+            <div class="seal-beaded-ring"></div>
+            <div class="seal-crest-crown">✦ &nbsp; ❖ &nbsp; ✦</div>
+            <div class="seal-monogram">
+              <span class="m-char">A</span>
+              <span class="m-amp">&amp;</span>
+              <span class="m-char">S</span>
+            </div>
+            <div class="seal-engraved-year">2026</div>
+          </div>
         </div>
-        <div class="seal-flourish bottom">✦</div>
       </div>
 
-      <div class="seal-text-group">
-        <span class="seal-couples-title">ANAS &bull; SHAFIKA</span>
-        <span class="seal-tap-prompt">
-          <i class="fa-solid fa-hand-pointer"></i> TAP TO OPEN INVITATION
-        </span>
+      <!-- Pre-title Lockup with Hairlines -->
+      <div class="cover-pretitle-lockup">
+        <span class="cover-hairline left"></span>
+        <span class="cover-pretitle">A BESPOKE CELEBRATION</span>
+        <span class="cover-hairline right"></span>
       </div>
+
+      <!-- Vertical Diamond Hairline Divider -->
+      <div class="cover-vertical-divider">
+        <span class="v-line"></span>
+        <span class="v-diamond">❖</span>
+        <span class="v-line"></span>
+      </div>
+
+      <!-- Haute Couture Typography: Couple Names -->
+      <div class="cover-names-lockup">
+        <h1 class="cover-groom-name">Mohammed Anas</h1>
+        <div class="cover-ampersand">
+          <span class="cover-amp-line"></span>
+          <span class="cover-amp-symbol">&amp;</span>
+          <span class="cover-amp-line"></span>
+        </div>
+        <h1 class="cover-bride-name">Fathimath Shafika</h1>
+      </div>
+
+      <!-- Event Date & Venue Lockup -->
+      <div class="cover-meta-lockup">
+        <div class="cover-meta-date-row">
+          <span class="cover-meta-date">27 DECEMBER 2026</span>
+          <span class="cover-meta-dot">•</span>
+          <span class="cover-meta-day">SUNDAY</span>
+        </div>
+        <div class="cover-meta-venue">THE FLORA BY SUNFLOWER &bull; KASARAGOD</div>
+      </div>
+
+      <!-- Interactive Call to Action: Open Invitation -->
+      <div class="cover-action-wrap">
+        <button class="cover-open-btn" id="coverOpenBtn" type="button" aria-label="Open Invitation">
+          <span class="btn-text">OPEN INVITATION</span>
+          <span class="btn-arrow"><i class="fa-solid fa-arrow-right-long"></i></span>
+        </button>
+      </div>
+
+      <!-- Bottom Enter Hint Indicator -->
+      <div class="cover-bottom-hint">
+        <span class="hint-text">TOUCH TO ENTER</span>
+        <div class="hint-indicator">
+          <div class="indicator-mouse">
+            <span class="mouse-wheel"></span>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </section>
 
   <!-- Floating Golden Stardust Canvas -->
   <canvas id="particlesCanvas" class="particles-canvas"></canvas>

@@ -23,40 +23,120 @@ document.addEventListener('DOMContentLoaded', () => {
   const toast = document.getElementById('toast');
   const entranceOverlay = document.getElementById('entranceOverlay');
   const entranceSealBtn = document.getElementById('entranceSealBtn');
+  const coverOpenBtn = document.getElementById('coverOpenBtn');
 
   // -------------------------------------------------------------------------
   // 0. CREATIVE ROYAL ENTRANCE UNVEIL (Wax Seal Tap & Parting Velvet Gates)
   // -------------------------------------------------------------------------
   let isUnveiled = false;
+  const burstParticles = [];
 
-  function unveilInvitation() {
+  // Web Audio API Synthesized Royal Crystalline Chime
+  function playRoyalChime() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+
+      // Major harmonic chord progression (E5, G#5, B5, E6)
+      const notes = [659.25, 830.61, 987.77, 1318.51];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+
+        gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.08);
+        gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + idx * 0.08 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + idx * 0.08 + 1.2);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(ctx.currentTime + idx * 0.08);
+        osc.stop(ctx.currentTime + idx * 0.08 + 1.25);
+      });
+    } catch (e) {
+      // Audio playback silently ignored if blocked by system policy
+    }
+  }
+
+  function triggerStardustBurst(originX, originY) {
+    const burstCount = 75;
+    const burstColors = ['#ffffff', '#fff8db', '#fce8a6', '#d4af37', '#e5c158', '#aa771c'];
+    for (let i = 0; i < burstCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 8.5 + 2.5;
+      burstParticles.push({
+        x: originX,
+        y: originY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - Math.random() * 1.5,
+        gravity: 0.12,
+        friction: 0.96,
+        radius: Math.random() * 2.8 + 1.2,
+        color: burstColors[Math.floor(Math.random() * burstColors.length)],
+        alpha: 1,
+        decay: Math.random() * 0.016 + 0.01
+      });
+    }
+  }
+
+  function unveilInvitation(clickEvent) {
     if (isUnveiled || !entranceOverlay) return;
     isUnveiled = true;
 
-    // This direct user tap immediately primes browser audio permissions
+    // Trigger golden stardust burst at interaction point
+    let clickX = window.innerWidth / 2;
+    let clickY = window.innerHeight / 2;
+    if (clickEvent && clickEvent.clientX) {
+      clickX = clickEvent.clientX;
+      clickY = clickEvent.clientY;
+    } else if (entranceSealBtn) {
+      const rect = entranceSealBtn.getBoundingClientRect();
+      clickX = rect.left + rect.width / 2;
+      clickY = rect.top + 52;
+    }
+    triggerStardustBurst(clickX, clickY);
+
+    // Play royal chime
+    playRoyalChime();
+
+    // Prime video audio permissions on this user interaction
     if (video) {
       video.muted = false;
       updateMuteButtonUI();
     }
 
+    // Trigger visual gate parting
     entranceOverlay.classList.add('unveiling');
+    document.body.classList.add('unveiled-ready');
 
     setTimeout(() => {
       entranceOverlay.classList.add('unveiled');
       document.body.style.overflow = 'auto';
-    }, 1200);
+    }, 1350);
   }
 
   if (entranceSealBtn) {
     entranceSealBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      unveilInvitation();
+      unveilInvitation(e);
+    });
+  }
+
+  if (coverOpenBtn) {
+    coverOpenBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      unveilInvitation(e);
     });
   }
 
   if (entranceOverlay) {
-    entranceOverlay.addEventListener('click', () => {
-      unveilInvitation();
+    entranceOverlay.addEventListener('click', (e) => {
+      unveilInvitation(e);
     });
   }
 
@@ -103,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function animateParticles() {
       ctx.clearRect(0, 0, width, height);
 
+      // 1. Ambient floating particles
       particles.forEach((p) => {
         p.y -= p.speedY;
         p.x += p.speedX;
@@ -128,6 +209,32 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fill();
         ctx.shadowBlur = 0;
       });
+
+      // 2. High-speed golden stardust burst particles
+      for (let i = burstParticles.length - 1; i >= 0; i--) {
+        const bp = burstParticles[i];
+        bp.x += bp.vx;
+        bp.y += bp.vy;
+        bp.vy += bp.gravity;
+        bp.vx *= bp.friction;
+        bp.vy *= bp.friction;
+        bp.alpha -= bp.decay;
+
+        if (bp.alpha <= 0) {
+          burstParticles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(bp.x, bp.y, bp.radius, 0, Math.PI * 2);
+        ctx.fillStyle = bp.color;
+        ctx.globalAlpha = Math.max(0, bp.alpha);
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = bp.color;
+        ctx.fill();
+        ctx.restore();
+      }
 
       requestAnimationFrame(animateParticles);
     }

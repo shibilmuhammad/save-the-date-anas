@@ -61,9 +61,9 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   CREATIVE ROYAL ENTRANCE UNVEIL (Wax Seal & Parting Velvet Gates)
+   CINEMATIC ROYAL EDITORIAL COVER & UNVEIL (Editorial Card, Gold Frame & Wax Seal)
    -------------------------------------------------------------------------- */
-.royal-entrance-overlay {
+.royal-editorial-cover {
   position: fixed;
   inset: 0;
   z-index: 99999;
@@ -72,96 +72,142 @@ body {
   justify-content: center;
   overflow: hidden;
   pointer-events: auto;
-  transition: opacity 0.5s ease 1.1s, visibility 0.5s ease 1.1s;
+  background-color: #020704;
+  transition: transform 1.25s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease 0.45s, visibility 1.25s;
+  will-change: transform, opacity;
 }
 
-.royal-entrance-overlay.unveiled {
-  opacity: 0;
+.royal-editorial-cover.unveiling {
+  transform: translateY(-100%);
+  opacity: 0.95;
+}
+
+.royal-editorial-cover.unveiled {
   visibility: hidden;
   pointer-events: none;
 }
 
-.gate-door {
+/* Atmospheric Stage & Lighting Backdrop with Deep Vignette */
+.cover-backdrop-img {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.5%;
-  background: radial-gradient(ellipse at 50% 50%, #0c231b 0%, #05110d 65%, #020705 100%);
+  inset: 0;
+  background-image: url('gallery/stage_couple.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(3.5px) brightness(0.26) saturate(0.85);
+  transform: scale(1.06);
+  z-index: 0;
+}
+
+.cover-vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 46%, rgba(5, 18, 13, 0.65) 0%, rgba(3, 9, 7, 0.93) 72%, #020604 100%);
   z-index: 1;
-  transition: transform 1.25s cubic-bezier(0.77, 0, 0.175, 1);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
 }
 
-.gate-left {
-  left: 0;
-  transform: translateX(0);
-}
-
-.gate-right {
-  right: 0;
-  transform: translateX(0);
-}
-
-.gate-left .gate-trim-line {
+.cover-radial-glow {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--gold-bright) 20%, var(--gold-pure) 50%, var(--gold-bright) 80%, transparent);
-  box-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+  top: 18%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(35px);
+  z-index: 1;
 }
 
-.gate-right .gate-trim-line {
+/* Haute Couture Double Gold Filigree Border Frame */
+.cover-frame-outer {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--gold-bright) 20%, var(--gold-pure) 50%, var(--gold-bright) 80%, transparent);
-  box-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+  top: 22px;
+  bottom: 22px;
+  left: 22px;
+  right: 22px;
+  pointer-events: none;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.95);
+  z-index: 2;
+  border-radius: 4px;
 }
 
-/* When opening gates */
-.royal-entrance-overlay.unveiling .gate-left {
-  transform: translateX(-100%);
+.cover-frame-inner {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  right: 6px;
+  border: 0.5px solid rgba(250, 231, 165, 0.22);
+  pointer-events: none;
+  border-radius: 2px;
 }
 
-.royal-entrance-overlay.unveiling .gate-right {
-  transform: translateX(100%);
+/* Corner Filigree Brackets */
+.frame-corner {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  pointer-events: none;
+  opacity: 0.65;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M2 38 L2 2 L38 2' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3Cpath d='M6 34 L6 6 L34 6' fill='none' stroke='%23fbedc5' stroke-width='0.75'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%23d4af37'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-/* Centered Golden Wax Seal */
-.entrance-seal-container {
+.frame-corner.top-left { top: -2px; left: -2px; }
+.frame-corner.top-right { top: -2px; right: -2px; transform: scaleX(-1); }
+.frame-corner.bottom-left { bottom: -2px; left: -2px; transform: scaleY(-1); }
+.frame-corner.bottom-right { bottom: -2px; right: -2px; transform: scale(-1); }
+
+/* Editorial Presentation Card Content */
+.cover-content-container {
   position: relative;
-  z-index: 10;
+  z-index: 5;
+  width: 100%;
+  max-width: 520px;
+  padding: 28px 24px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  text-align: center;
+  justify-content: space-between;
+  min-height: calc(100vh - 60px);
+  min-height: calc(100dvh - 60px);
 }
 
-.entrance-seal-container:hover {
+/* 3D Molten Gold Wax Seal */
+.cover-seal-wrap {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 4px;
+}
+
+.cover-seal-wrap:hover {
   transform: scale(1.05);
 }
 
-.entrance-seal-container:active {
-  transform: scale(0.96);
+.cover-seal-wrap:active {
+  transform: scale(0.93);
 }
 
-.royal-entrance-overlay.unveiling .entrance-seal-container {
-  transform: scale(1.3);
+.royal-editorial-cover.unveiling .cover-seal-wrap {
+  transform: scale(1.22);
   opacity: 0;
-  pointer-events: none;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
 }
 
 /* Concentric Expanding Aura Rings */
 .seal-pulse-aura {
   position: absolute;
-  top: 48px;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 105px;
@@ -173,116 +219,382 @@ body {
   animation: sealAuraPulse 2.4s infinite ease-out;
 }
 
-.seal-pulse-aura.outer {
+.seal-pulse-aura.ring-2 {
   animation-delay: 1.2s;
 }
 
 @keyframes sealAuraPulse {
-  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
-  60% { transform: translate(-50%, -50%) scale(1.35); opacity: 0.25; }
-  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+  0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.85; }
+  60% { transform: translate(-50%, -50%) scale(1.42); opacity: 0.25; }
+  100% { transform: translate(-50%, -50%) scale(1.75); opacity: 0; }
 }
 
-/* 3D Embossed Golden Wax Seal */
-.royal-wax-seal {
+/* Golden Shockwave Ripple (triggers on tap) */
+.seal-shockwave-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5;
+}
+
+.royal-editorial-cover.unveiling .seal-shockwave-ring {
+  animation: shockwaveExpand 0.75s ease-out forwards;
+}
+
+@keyframes shockwaveExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+    border-color: #ffffff;
+    box-shadow: 0 0 35px #ffffff, 0 0 60px rgba(212, 175, 55, 0.8);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(7.5);
+    opacity: 0;
+    border-color: var(--gold-bright);
+    box-shadow: 0 0 80px rgba(212, 175, 55, 0);
+  }
+}
+
+/* 3D Molten Wax Seal with Organic Edge */
+.royal-wax-seal-outer {
   position: relative;
   width: 96px;
   height: 96px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff7d6 0%, #d4af37 40%, #aa771c 75%, #5e3b05 100%);
-  border: 2px solid #fff5d9;
+  border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%;
+  background: radial-gradient(circle at 35% 30%, #fffbf0 0%, #ecd078 20%, #d4af37 50%, #aa771c 80%, #5a3804 100%);
+  border: 2px solid #fffdf5;
   box-shadow: 
-    0 0 0 4px rgba(212, 175, 55, 0.3),
-    0 16px 40px rgba(0, 0, 0, 0.85),
-    inset 0 3px 5px rgba(255, 255, 255, 0.7),
-    inset 0 -4px 6px rgba(0, 0, 0, 0.6);
+    0 12px 36px rgba(0, 0, 0, 0.9),
+    0 0 0 4px rgba(212, 175, 55, 0.35),
+    inset 0 3px 6px rgba(255, 255, 255, 0.75),
+    inset 0 -5px 8px rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.royal-wax-seal {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 22px;
 }
 
-.seal-flourish {
-  font-size: 0.55rem;
-  color: #5e3b05;
-  opacity: 0.7;
+/* Sweeping Light Shimmer Reflection */
+.seal-shimmer-sweep {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+  transform: translateX(-120%) rotate(35deg);
+  animation: sealShimmerSweep 3.6s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes sealShimmerSweep {
+  0%, 60% { transform: translateX(-120%) rotate(35deg); }
+  85%, 100% { transform: translateX(120%) rotate(35deg); }
+}
+
+/* Beaded Engraved Ring */
+.seal-beaded-ring {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(94, 59, 5, 0.65);
+  pointer-events: none;
+}
+
+.seal-crest-crown {
+  font-size: 0.5rem;
+  color: #553202;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  margin-bottom: 2px;
 }
 
 .seal-monogram {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
-  gap: 5px;
+  gap: 2px;
   font-family: var(--font-editorial);
   font-weight: 700;
-  font-size: 1.6rem;
-  color: #3b2402;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  font-size: 1.55rem;
+  color: #351f02;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45), 0 -1px 0 rgba(0, 0, 0, 0.4);
   letter-spacing: 1px;
 }
 
-.seal-monogram .m-diamond {
-  font-size: 0.75rem;
-  opacity: 0.85;
+.seal-monogram .m-amp {
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  color: #523103;
+  font-weight: 400;
+  margin: 0 1px;
 }
 
-.seal-text-group {
+.seal-engraved-year {
+  font-family: var(--font-serif);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #5a3604;
+  opacity: 0.9;
+}
+
+/* Pre-title Lockup with Hairlines */
+.cover-pretitle-lockup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 14px 0 6px;
+  width: 100%;
+}
+
+.cover-hairline {
+  height: 1px;
+  flex: 1;
+  max-width: 65px;
+  background: linear-gradient(to right, transparent, var(--border-gold-bright));
+}
+
+.cover-hairline.right {
+  background: linear-gradient(to left, transparent, var(--border-gold-bright));
+}
+
+.cover-pretitle {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 4.5px;
+  color: var(--gold-champagne);
+  opacity: 0.92;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+/* Vertical Diamond Hairline Divider */
+.cover-vertical-divider {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  text-align: center;
+  gap: 4px;
+  margin: 6px 0 10px;
 }
 
-.seal-couples-title {
+.cover-vertical-divider .v-line {
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, var(--border-gold-bright), transparent);
+}
+
+.cover-vertical-divider .v-diamond {
+  font-size: 0.65rem;
+  color: var(--gold-bright);
+  opacity: 0.85;
+}
+
+/* Couple Names Lockup (Haute Couture Serif Italic) */
+.cover-names-lockup {
+  margin: 2px 0 6px;
+}
+
+.cover-groom-name, .cover-bride-name {
+  font-family: var(--font-editorial);
+  font-size: 2.75rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #ffffff 0%, #fef3d6 35%, #e2be67 75%, #aa771c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 22px rgba(212, 175, 55, 0.35));
+}
+
+.cover-ampersand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 2px 0;
+}
+
+.cover-amp-line {
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-gold-bright), transparent);
+}
+
+.cover-amp-symbol {
+  font-family: var(--font-script);
+  font-size: 3rem;
+  color: var(--gold-champagne);
+  line-height: 0.8;
+  opacity: 0.92;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.4));
+}
+
+/* Event Date & Venue Meta Lockup */
+.cover-meta-lockup {
+  margin: 12px 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.cover-meta-date-row {
   font-family: var(--font-sans);
   font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 4px;
-  color: var(--gold-champagne);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-}
-
-.seal-tap-prompt {
-  display: inline-flex;
+  letter-spacing: 3.5px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 20px;
-  background: rgba(14, 38, 29, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-gold-bright);
-  border-radius: var(--radius-full);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.cover-meta-dot {
   color: var(--gold-bright);
+}
+
+.cover-meta-venue {
+  font-family: var(--font-serif);
+  font-size: 0.84rem;
+  font-style: italic;
+  letter-spacing: 1.8px;
+  color: var(--gold-champagne);
+  opacity: 0.88;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Interactive Call to Action: Open Invitation */
+.cover-action-wrap {
+  margin-top: 18px;
+}
+
+.cover-open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 38px;
+  background: rgba(14, 38, 29, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid var(--border-gold-bright);
+  border-radius: var(--radius-full);
+  color: #ffffff;
   font-family: var(--font-sans);
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 2.5px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 16px rgba(212, 175, 55, 0.25);
-  animation: promptGlow 2s infinite ease-in-out;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.65), 0 0 22px rgba(212, 175, 55, 0.25);
+  animation: promptGlow 2.4s infinite ease-in-out;
+}
+
+.cover-open-btn:hover {
+  background: rgba(20, 56, 42, 0.85);
+  border-color: var(--gold-bright);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.8), 0 0 32px rgba(250, 231, 165, 0.45);
+  transform: translateY(-2px);
+}
+
+.cover-open-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.cover-open-btn .btn-arrow {
+  color: var(--gold-bright);
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+}
+
+.cover-open-btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* Bottom Enter Hint */
+.cover-bottom-hint {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.72;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.cover-bottom-hint:hover {
+  opacity: 1;
+}
+
+.cover-bottom-hint .hint-text {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--gold-champagne);
+  text-transform: uppercase;
+}
+
+.indicator-mouse {
+  width: 17px;
+  height: 27px;
+  border: 1.5px solid var(--border-gold-bright);
+  border-radius: 12px;
+  position: relative;
+}
+
+.mouse-wheel {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.5px;
+  height: 5px;
+  background: var(--gold-bright);
+  border-radius: 2px;
+  animation: mouseScroll 1.6s infinite ease-in-out;
+}
+
+@keyframes mouseScroll {
+  0% { transform: translate(-50%, 0); opacity: 0; }
+  40% { opacity: 1; }
+  80% { transform: translate(-50%, 8px); opacity: 0; }
+  100% { opacity: 0; }
 }
 
 @keyframes promptGlow {
   0%, 100% {
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 12px rgba(212, 175, 55, 0.2);
-    border-color: var(--border-gold-fine);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6), 0 0 14px rgba(212, 175, 55, 0.22);
+    border-color: var(--border-gold-bright);
   }
   50% {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), 0 0 22px rgba(250, 231, 165, 0.45);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 24px rgba(250, 231, 165, 0.45);
     border-color: var(--gold-bright);
   }
-}
-
-.seal-tap-prompt i {
-  color: var(--gold-pure);
-  font-size: 0.75rem;
-  animation: tapPointer 1.6s infinite ease-in-out;
-}
-
-@keyframes tapPointer {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
 }
 
 /* --------------------------------------------------------------------------
@@ -1549,6 +1861,85 @@ body {
     width: 26px;
     height: 26px;
     font-size: 0.72rem;
+  }
+  /* Royal Editorial Cover Mobile Harmony */
+  .cover-frame-outer {
+    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+  }
+  .frame-corner {
+    width: 26px;
+    height: 26px;
+  }
+  .cover-content-container {
+    padding: 16px 14px 12px;
+    min-height: calc(100vh - 28px);
+    min-height: calc(100dvh - 28px);
+  }
+  .royal-wax-seal-outer {
+    width: 76px;
+    height: 76px;
+  }
+  .royal-wax-seal {
+    width: 66px;
+    height: 66px;
+  }
+  .seal-monogram {
+    font-size: 1.25rem;
+  }
+  .seal-monogram .m-amp {
+    font-size: 1.05rem;
+  }
+  .seal-crest-crown {
+    font-size: 0.42rem;
+  }
+  .seal-engraved-year {
+    font-size: 0.48rem;
+  }
+  .seal-pulse-aura {
+    width: 82px;
+    height: 82px;
+  }
+  .cover-pretitle {
+    font-size: 0.62rem;
+    letter-spacing: 3.5px;
+  }
+  .cover-hairline {
+    max-width: 40px;
+  }
+  .cover-vertical-divider {
+    margin: 3px 0 6px;
+  }
+  .cover-vertical-divider .v-line {
+    height: 12px;
+  }
+  .cover-groom-name, .cover-bride-name {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+  .cover-amp-symbol {
+    font-size: 2.2rem;
+  }
+  .cover-amp-line {
+    width: 24px;
+  }
+  .cover-meta-date-row {
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+  }
+  .cover-meta-venue {
+    font-size: 0.72rem;
+    letter-spacing: 1.2px;
+  }
+  .cover-open-btn {
+    padding: 11px 28px;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+  }
+  .cover-bottom-hint {
+    margin-top: 8px;
   }
   .count-number {
     font-size: 1.8rem;

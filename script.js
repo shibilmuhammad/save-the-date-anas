@@ -109,9 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Play royal chime
     playRoyalChime();
 
-    // Prime video audio permissions on this user interaction
+    // Prime and pre-warm video playback pipeline on user interaction
     if (video) {
       video.muted = false;
+      const primePlay = video.play();
+      if (primePlay !== undefined) {
+        primePlay.catch(() => {
+          video.muted = true;
+          video.play().catch(() => {});
+        });
+      }
       updateMuteButtonUI();
     }
 
@@ -313,27 +320,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // IntersectionObserver: Autoplay when user reaches video after scrolling
+  // IntersectionObserver: Instant Pre-buffering & Smooth Autoplay when approaching video
   if (video && videoSection && 'IntersectionObserver' in window) {
     const observerOptions = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.35 // Trigger when 35% of video is visible
+      rootMargin: '160px 0px 160px 0px',
+      threshold: 0.08 // Trigger as soon as the video section approaches viewport
     };
 
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          video.muted = false;
           const playPromise = video.play();
-
           if (playPromise !== undefined) {
             playPromise
               .then(() => {
                 updateMuteButtonUI();
               })
               .catch((err) => {
-                console.warn('Browser policy deferred unmuted autoplay, playing muted then unmuting on touch:', err);
+                // If strict unmuted policy blocks, seamlessly continue muted
                 video.muted = true;
                 updateMuteButtonUI();
                 video.play().catch(() => {});
@@ -349,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
               });
           }
         } else {
-          // Pause when scrolled out of view to save battery/resources
+          // Pause when scrolled out of view to save battery and network bandwidth
           if (!video.paused) {
             video.pause();
           }
@@ -466,6 +471,17 @@ document.addEventListener('DOMContentLoaded', () => {
   if (scrollGuideBtn && videoSection) {
     scrollGuideBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      if (video) {
+        video.muted = false;
+        const p = video.play();
+        if (p !== undefined) {
+          p.catch(() => {
+            video.muted = true;
+            video.play().catch(() => {});
+          });
+        }
+        updateMuteButtonUI();
+      }
       videoSection.scrollIntoView({ behavior: 'smooth' });
     });
   }

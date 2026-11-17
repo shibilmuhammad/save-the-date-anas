@@ -670,11 +670,12 @@ body {
 
 .badge-text {
   font-family: var(--font-sans);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 4px;
+  letter-spacing: 2.5px;
   color: var(--gold-light);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* Couple Names Lockup */
@@ -1870,16 +1871,18 @@ body {
     margin-top: 4px;
   }
   .couture-badge {
-    padding: 6px 18px;
+    padding: 6px 14px;
     margin-bottom: 20px;
-    gap: 8px;
+    gap: 7px;
+    max-width: 94vw;
   }
   .badge-text {
-    font-size: 0.72rem;
-    letter-spacing: 3.5px;
+    font-size: 0.58rem;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
   }
   .badge-diamond {
-    font-size: 0.6rem;
+    font-size: 0.52rem;
   }
   .couple-names-lockup {
     margin-bottom: 18px;
@@ -2070,7 +2073,15 @@ body {
   }
   .couture-badge {
     margin-bottom: 12px;
-    padding: 4px 14px;
+    padding: 4px 10px;
+    gap: 5px;
+  }
+  .badge-text {
+    font-size: 0.5rem;
+    letter-spacing: 1px;
+  }
+  .badge-diamond {
+    font-size: 0.46rem;
   }
   .couple-names-lockup {
     margin-bottom: 12px;
